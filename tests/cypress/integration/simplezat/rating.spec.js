@@ -5,9 +5,9 @@ context('Rating', () => {
 
   it('should be able to give positve rating with comment', () => {
     cy.contains('How do we do?')
-    cy.get('img').should('have.attr', 'alt', 'Postive')
-    cy.get('img').should('have.attr', 'alt', 'Neutral')
-    cy.get('img').should('have.attr', 'alt', 'Negative')
+    cy.get('[href="/ratings/positive/"] > img').should('have.attr', 'alt', 'Positive')
+    cy.get('[href="/ratings/neutral/"] > img').should('have.attr', 'alt', 'Neutral')
+    cy.get('[href="/ratings/negative/"] > img').should('have.attr', 'alt', 'Negative')
 
     cy.get('img[alt="Positive"]').click()
     cy.wait(1000)
