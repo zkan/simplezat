@@ -4,5 +4,5 @@ from .views import RatingView
 
 
 urlpatterns = [
-    path('', RatingView.as_view(), name='rating'),
+    path('', RatingView.as_view(), name='ratings'),
 ]
