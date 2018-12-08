@@ -10,3 +10,16 @@ class RatingView(TemplateView):
             request,
             self.template
         )
+
+
+class CommentView(TemplateView):
+    template = 'comments.html'
+
+    def get(self, request, rating):
+        return render(
+            request,
+            self.template,
+            {
+                'rating': rating
+            }
+        )
