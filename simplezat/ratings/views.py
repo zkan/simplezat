@@ -23,3 +23,13 @@ class CommentView(TemplateView):
                 'rating': rating
             }
         )
+
+
+class ThanksView(TemplateView):
+    template = 'thanks.html'
+
+    def get(self, request):
+        return render(
+            request,
+            self.template
+        )

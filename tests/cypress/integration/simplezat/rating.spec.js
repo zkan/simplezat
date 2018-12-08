@@ -17,6 +17,6 @@ context('Rating', () => {
     cy.get('button').click()
     cy.wait(1000)
 
-    cy.contains('Thank you!')
+    cy.contains('Thank You!')
   })
 })
