@@ -1,4 +1,8 @@
-from django.shortcuts import render
+from django.urls import reverse
+from django.shortcuts import (
+    redirect,
+    render,
+)
 from django.views.generic import TemplateView
 
 
@@ -23,6 +27,9 @@ class CommentView(TemplateView):
                 'rating': rating
             }
         )
+
+    def post(self, request, rating):
+        return redirect(reverse('thanks'))
 
 
 class ThanksView(TemplateView):
