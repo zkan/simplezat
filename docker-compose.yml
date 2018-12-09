@@ -1,0 +1,13 @@
+version: '3.7'
+
+services:
+  app:
+    image: zkan/simplezat:unstable
+    build:
+      context: .
+      dockerfile: Dockerfile
+    volumes:
+      - .:/app
+    ports:
+      - "8000:8000"
+    command: ./entrypoint.sh
