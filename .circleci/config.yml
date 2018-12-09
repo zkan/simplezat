@@ -32,7 +32,8 @@ jobs:
       - run:
           name: Run Static Analysis
           command: |
-            pipenv run --dev flake8
+            pipenv install --dev
+            pipenv run flake8
 
   unit_tests:
     working_directory: ~/simplezat
@@ -44,8 +45,8 @@ jobs:
       - run:
           name: Run Unit Tests
           command: |
-            cd simplezat
-            pipenv run python manage.py test
+            pipenv install --dev
+            cd simplezat && pipenv run python manage.py test
 
   deploy_dev:
     working_directory: ~/simplezat
