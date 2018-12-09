@@ -1,0 +1,8 @@
+version: '3.7'
+
+services:
+  app:
+    image: zkan/simplezat:live
+    ports:
+      - "8000:8000"
+    command: ./entrypoint.production.sh
