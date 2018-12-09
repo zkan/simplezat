@@ -2,10 +2,7 @@ version: '3.7'
 
 services:
   app:
-    image: parnpresso/simplezat:stable
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
+    image: zkan/simplezat:stable
     ports:
       - "8000:8000"
     command: ./entrypoint.dev.sh
