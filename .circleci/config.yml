@@ -55,6 +55,16 @@ jobs:
     steps:
       - attach_workspace:
           at: .
+      - setup_remote_docker
+      - run:
+          name: Build Stable Images
+          command: |
+            docker build -t zkan/simplezat:stable -f Dockerfile.dev .
+            docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker push zkan/simplezat:stable
+      - add_ssh_keys:
+          fingerprints:
+            - ""
       - run:
           name: Deploy to Development Server
           command: |
