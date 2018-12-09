@@ -62,13 +62,12 @@ jobs:
             docker build -t zkan/simplezat:stable -f Dockerfile.dev .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
             docker push zkan/simplezat:stable
-      - add_ssh_keys:
-          fingerprints:
-            - "98:f4:1c:4a:82:ec:99:12:34:2e:e4:d1:dd:c2:81:f0"
+      - add_ssh_keys
       - run:
           name: Deploy to Development Server
           command: |
             cd deployment
+            ls ~/.ssh
             pipenv install
             pipenv run ansible-playbook -i server_hosts playbooks/dev.yml --extra-vars "project_root=~/simplezat"
 
