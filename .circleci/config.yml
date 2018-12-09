@@ -64,7 +64,7 @@ jobs:
             docker push zkan/simplezat:stable
       - add_ssh_keys:
           fingerprints:
-            - "e9:24:bd:bd:d5:73:9f:da:60:86:86:33:87:5d:55:73"
+            - "98:f4:1c:4a:82:ec:99:12:34:2e:e4:d1:dd:c2:81:f0"
       - run:
           name: Deploy to Development Server
           command: |
