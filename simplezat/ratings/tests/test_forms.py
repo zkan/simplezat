@@ -17,7 +17,9 @@ class RatingFormTest(TestCase):
         for each in expected_fields:
             self.assertTrue(each in self.form.fields)
 
-    def test_form_should_have_correct_fields_and_widget(self):
+        self.assertEqual(len(self.form.fields), 2)
+
+    def test_form_should_have_correct_fields_and_widgets(self):
         self.assertIsInstance(
             self.form.fields['sentiment'].widget,
             forms.HiddenInput
