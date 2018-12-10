@@ -1,0 +1,5 @@
+---
+- name: admin
+  hosts: "{{ host }}"
+  roles:
+    - createsuperuser
