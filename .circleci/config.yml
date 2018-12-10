@@ -39,6 +39,7 @@ jobs:
     working_directory: ~/simplezat
     docker:
       - image: circleci/python:3.7.1
+      - image: circleci/postgres:11.1-alpine-ram
     steps:
       - attach_workspace:
           at: .
@@ -46,7 +47,7 @@ jobs:
           name: Run Unit Tests
           command: |
             pipenv install --dev
-            cd simplezat && pipenv run pytest
+            cd simplezat && export DATABASE_HOST=localhost pipenv run pytest
 
   acceptance_tests:
     working_directory: ~/simplezat
