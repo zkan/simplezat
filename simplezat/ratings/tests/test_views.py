@@ -1,6 +1,8 @@
 from django.urls import reverse
 from django.test import TestCase
 
+from ..models import Rating
+
 
 class RatingViewTest(TestCase):
     def setUp(self):
@@ -32,6 +34,14 @@ class RatingViewTest(TestCase):
 
 
 class CommentViewTest(TestCase):
+    def setUp(self):
+        self.url = reverse(
+            'comments',
+            kwargs={
+                'rating': 'positive'
+            }
+        )
+
     def test_comment_view_should_render_text_and_comment_form_correctly(self):
         for each in ['positive', 'abc', 'xyz']:
             url = reverse(
@@ -57,15 +67,32 @@ class CommentViewTest(TestCase):
                 '</button></form>'
             self.assertContains(response, expected, status_code=200)
 
-    def test_submit_comment_form_should_redirect_to_thanks_page(self):
-        url = reverse(
-            'comments',
-            kwargs={
-                'rating': 'positive'
-            }
-        )
-        response = self.client.post(url)
+    def test_submit_comment_should_save_data_and_redirect_when_valid(self):
+        data = {
+            'sentiment': 'positive',
+            'comment': 'You did great!'
+        }
+        response = self.client.post(self.url, data=data)
+
         self.assertRedirects(response, reverse('thanks'))
+
+        rating = Rating.objects.last()
+        self.assertEqual(rating.sentiment, 'positive')
+        self.assertEqual(rating.comment, 'You did great!')
+
+    def test_submit_comment_should_not_save_data_and_not_redirect_when_invalid(
+        self
+    ):
+        data = {
+            'sentiment': 'positive',
+            'comment': ''
+        }
+        response = self.client.post(self.url, data=data)
+
+        self.assertEqual(response.status_code, 200)
+
+        rating = Rating.objects.last()
+        self.assertIsNone(rating)
 
 
 class ThanksViewTest(TestCase):
