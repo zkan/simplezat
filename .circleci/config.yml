@@ -46,7 +46,7 @@ jobs:
           name: Run Unit Tests
           command: |
             pipenv install --dev
-            cd simplezat && pipenv run python manage.py test
+            cd simplezat && pipenv run pytest
 
   acceptance_tests:
     working_directory: ~/simplezat
