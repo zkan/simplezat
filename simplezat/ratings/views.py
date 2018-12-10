@@ -3,12 +3,12 @@ from django.shortcuts import (
     redirect,
     render,
 )
-from django.views.generic import TemplateView
+from django.views import View
 
 from .forms import RatingForm
 
 
-class RatingView(TemplateView):
+class RatingView(View):
     template = 'ratings.html'
 
     def get(self, request):
@@ -18,7 +18,7 @@ class RatingView(TemplateView):
         )
 
 
-class CommentView(TemplateView):
+class CommentView(View):
     template = 'comments.html'
 
     def get(self, request, rating):
@@ -40,7 +40,7 @@ class CommentView(TemplateView):
         return redirect(reverse('thanks'))
 
 
-class ThanksView(TemplateView):
+class ThanksView(View):
     template = 'thanks.html'
 
     def get(self, request):
