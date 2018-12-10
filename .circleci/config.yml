@@ -60,7 +60,7 @@ jobs:
           command: |
             cd tests
             npm install
-            CYPRESS_baseUrl=http://35.243.99.19:8000 ./node_modules/.bin/cypress run --spec 'cypress/integration/simplezat/*'
+            CYPRESS_baseUrl=http://35.243.84.252:8000 ./node_modules/.bin/cypress run --spec 'cypress/integration/simplezat/*'
 
   deploy_dev:
     working_directory: ~/simplezat
@@ -83,7 +83,7 @@ jobs:
           name: Deploy to Development Server
           command: |
             cd deployment
-            ssh-keyscan -H 35.243.99.19 >> ~/.ssh/known_hosts
+            ssh-keyscan -H 35.243.84.252 >> ~/.ssh/known_hosts
             pipenv install
             pipenv run ansible-playbook -i server_hosts playbooks/dev.yml --extra-vars "project_root=~/simplezat"
 

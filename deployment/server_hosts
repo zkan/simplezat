@@ -1,5 +1,5 @@
 [dev]
-35.243.99.19 ansible_ssh_user=kan ansible_connection=ssh
+35.243.84.252 ansible_ssh_user=kan ansible_connection=ssh
 
 [prod]
 35.200.30.52 ansible_ssh_user=kan ansible_connection=ssh
