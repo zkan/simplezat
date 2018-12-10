@@ -75,6 +75,12 @@ jobs:
           name: Build Stable Images
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+            docker build -t zkan/simplezat-nginx:stable -f nginx/Dockerfile nginx/
+            docker tag zkan/simplezat-nginx:stable zkan/simplezat-nginx:$CIRCLE_SHA1
+            docker push zkan/simplezat-nginx:stable
+            docker push zkan/simplezat-nginx:$CIRCLE_SHA1
+
             docker build -t zkan/simplezat:stable -f Dockerfile.dev .
             docker tag zkan/simplezat:stable zkan/simplezat:$CIRCLE_SHA1
             docker push zkan/simplezat:stable
@@ -100,6 +106,11 @@ jobs:
           name: Build Live Images
           command: |
             docker login -u $DOCKER_USER -p $DOCKER_PASS
+
+            docker pull zkan/simplezat-nginx:stable
+            docker tag zkan/simplezat-nginx:stable zkan/simplezat-nginx:live
+            docker push zkan/simplezat-nginx:live
+
             docker build -t zkan/simplezat:live -f Dockerfile.prod .
             docker tag zkan/simplezat:live zkan/simplezat:$CIRCLE_SHA1
             docker push zkan/simplezat:live
