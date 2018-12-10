@@ -1,4 +1,4 @@
 from .base import *
 
 
-ALLOWED_HOST = ['*']
+ALLOWED_HOSTS = ['*']
