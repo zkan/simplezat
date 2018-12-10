@@ -48,6 +48,19 @@ jobs:
             pipenv install --dev
             cd simplezat && pipenv run python manage.py test
 
+  acceptance_tests:
+    working_directory: ~/simplezat
+    docker:
+      - image: circleci/node:8.14-browsers
+    steps:
+      - attach_workspace:
+          at: .
+      - run:
+          name: Run Acceptance Tests
+          command: |
+            cd tests
+            CYPRESS_baseUrl=http://35.243.99.19:8000 ./node_modules/.bin/cypress run --spec 'cypress/integration/simplezat/*'
+
   deploy_dev:
     working_directory: ~/simplezat
     docker:
@@ -115,10 +128,13 @@ workflows:
       - deploy_dev:
           requires:
             - unit_tests
+      - acceptance_tests:
+          requires:
+            - deploy_dev
       - wait_for_approval:
           type: approval
           requires:
-            - deploy_dev
+            - acceptance_tests
       - deploy_production:
           requires:
             - wait_for_approval
