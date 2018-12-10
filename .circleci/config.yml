@@ -59,9 +59,11 @@ jobs:
       - run:
           name: Build Stable Images
           command: |
-            docker build -t zkan/simplezat:stable -f Dockerfile.dev .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t zkan/simplezat:stable -f Dockerfile.dev .
+            docker tag zkan/simplezat:stable zkan/simplezat:$CIRCLE_SHA1
             docker push zkan/simplezat:stable
+            docker push zkan/simplezat:$CIRCLE_SHA1
       - add_ssh_keys
       - run:
           name: Deploy to Development Server
@@ -82,9 +84,11 @@ jobs:
       - run:
           name: Build Live Images
           command: |
-            docker build -t zkan/simplezat:live -f Dockerfile.prod .
             docker login -u $DOCKER_USER -p $DOCKER_PASS
+            docker build -t zkan/simplezat:live -f Dockerfile.prod .
+            docker tag zkan/simplezat:live zkan/simplezat:$CIRCLE_SHA1
             docker push zkan/simplezat:live
+            docker push zkan/simplezat:$CIRCLE_SHA1
       - add_ssh_keys
       - run:
           name: Deploy to Production Server
