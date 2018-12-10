@@ -3,8 +3,7 @@
 {% spaceless %}
 <form action="." method="post">
 {% csrf_token %}
-<textarea name="comment"></textarea>
-<input type="hidden" name="rating" value="{{ rating }}">
+{{ form.as_p }}
 <button type="submit">Submit</button>
 </form>
 {% endspaceless %}
